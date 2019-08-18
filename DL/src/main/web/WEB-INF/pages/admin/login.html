@@ -50,18 +50,24 @@
     function login() {
         var uName = document.getElementById('log_Login_action_user_userName').value;
         var pwd = document.getElementById('log_Login_action_user_userPassword').value;
-        $.ajax({
-            url:'/user/login',
-            post:'post',
-            data:{
-                userName:uName,
-                userPassword:pwd
-            },
-            success:function (result) {
-                alert(result.msg);
-                location.href='/pages/admin/view/AdminTemp.html';
-            }
-        })
+        if (uName == null || uName == '') {
+            alert("请输入用户名!")
+        }else if (pwd == null || pwd == '') {
+            alert("请输入正确的密码!");
+        } else {
+            $.ajax({
+                url:'/user/login',
+                post:'post',
+                data:{
+                    userName:uName,
+                    userPassword:pwd
+                },
+                success:function (result) {
+                    alert(result.msg);
+                    location.href='/pages/admin/view/AdminTemp.html';
+                }
+            });
+        }
     }
 </script>
 </html>
