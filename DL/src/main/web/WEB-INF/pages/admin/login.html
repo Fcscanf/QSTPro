@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>管理员登录</title>
     <link type="text/css" rel="stylesheet" href="/css/style.css;">
+    <script src="/js/jquery-3.3.1/jquery-3.3.1.min.js"></script>
 </head>
 <body bgcolor="#E7ECEF">
 <center>
@@ -25,7 +26,7 @@
                             <td></td>
                             <td>
 
-                                <input type="button" id="" value="登录" onclick="window.location.href='/pages/admin/view/AdminTemp.html'"/>
+                                <input type="button" id="" value="登录" onclick="login()"/>
 
                                 <input type="reset" value="重置"/>
 
@@ -44,4 +45,23 @@
 
 </center>
 </body>
+<script>
+    
+    function login() {
+        var uName = document.getElementById('log_Login_action_user_userName').value;
+        var pwd = document.getElementById('log_Login_action_user_userPassword').value;
+        $.ajax({
+            url:'/user/login',
+            post:'post',
+            data:{
+                userName:uName,
+                userPassword:pwd
+            },
+            success:function (result) {
+                alert(result.msg);
+                location.href='/pages/admin/view/AdminTemp.html';
+            }
+        })
+    }
+</script>
 </html>

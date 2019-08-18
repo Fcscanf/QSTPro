@@ -25,6 +25,7 @@
     <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
     <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
     <mvc:resources location="/WEB-INF/view/" mapping="/view/**"/>
+    <mvc:resources location="/WEB-INF/pages/" mapping="/pages/**"/>
 
     <!-- 注解驱动，以使得访问路径与方法的匹配可以通过注解配置 -->
     <mvc:annotation-driven >
