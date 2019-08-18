@@ -25,6 +25,19 @@ public class UserController {
     UserService userService;
 
     /**
+     * 用户注册
+     *
+     * @param user userName,userPassword
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 16:43 2019-08-18/0018
+     */
+    @RequestMapping("/reg")
+    public MsgUtil userRegister(User user) {
+        return userService.insertUser(user);
+    }
+
+    /**
      * 用户登录
      *
      * @param user userName

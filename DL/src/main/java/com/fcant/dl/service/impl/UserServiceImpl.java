@@ -22,6 +22,26 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     /**
+     * 用户注册
+     *
+     * @param user userName,userPassword
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 16:37 2019-08-18/0018
+     */
+    @Override
+    public MsgUtil insertUser(User user) {
+        User selectByUserName = userMapper.selectByUserName(user);
+        if (selectByUserName == null) {
+            userMapper.insertUser(user);
+            return MsgUtil.success("注册成功！");
+        } else {
+            return MsgUtil.fail("用户名已存在，请重新输入用户名");
+        }
+
+    }
+
+    /**
      * 用户登录，根据不同的情况返回错误码
      *
      * @param user 登录的用户
@@ -41,7 +61,7 @@ public class UserServiceImpl implements UserService {
                 if (user.getUserPassword().equals(selectByUserName.getUserPassword())) {
                     return MsgUtil.success("登录成功!");
                 }
-                return MsgUtil.fail("操作失败");
+                return MsgUtil.fail("密码错误，请输入正确的密码！");
             }
         }
     }

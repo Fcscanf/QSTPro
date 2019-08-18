@@ -29,4 +29,11 @@ public class MapperTest {
         user.setUserName("Fcant");
         System.out.println(userMapper.selectByUserName(user));
     }
+
+    @Test
+    public void addUserTest() {
+        User user = new User();
+        user.setUserName("Fcant");
+        userMapper.insertUser(user);
+    }
 }

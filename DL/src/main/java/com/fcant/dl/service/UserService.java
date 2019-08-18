@@ -24,4 +24,14 @@ public interface UserService {
      * @date 下午 15:24 2019-08-18/0018
      */
     public MsgUtil userLogin(User user);
+
+    /**
+     * 用户注册
+     *
+     * @param user userName,userPassword
+     * @return int
+     * @author Fcant
+     * @date 下午 16:37 2019-08-18/0018
+     */
+    MsgUtil insertUser(User user);
 }
