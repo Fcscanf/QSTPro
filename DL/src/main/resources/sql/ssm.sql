@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 14/08/2019 15:44:27
+ Date: 21/08/2019 11:54:08
 */
 
 SET NAMES utf8mb4;
@@ -498,12 +498,18 @@ CREATE TABLE `tb_info`  (
   `info_linkman` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `info_data` timestamp(0) DEFAULT NULL,
+  `info_data` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_check` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_payfor` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_info
+-- ----------------------------
+INSERT INTO `tb_info` VALUES (1, 2, '青软实训', '青软实训是国内最大的实训企业', 'Fcant', '17826260016', 'fcscanf@126.com', NULL, '0', '0', '0');
+INSERT INTO `tb_info` VALUES (2, 1, '激情创业', '未来有我们', '华宇', '17826260078', 'fcscanf@outlook.com', '2019-08-21 11:49:11', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for tb_type
@@ -514,7 +520,22 @@ CREATE TABLE `tb_type`  (
   `type_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `type_intro` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`type_sign`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_type
+-- ----------------------------
+INSERT INTO `tb_type` VALUES (1, '招聘信息', NULL);
+INSERT INTO `tb_type` VALUES (2, '培训信息', NULL);
+INSERT INTO `tb_type` VALUES (3, '房屋信息', NULL);
+INSERT INTO `tb_type` VALUES (4, '求购信息', NULL);
+INSERT INTO `tb_type` VALUES (5, '招商引资', NULL);
+INSERT INTO `tb_type` VALUES (6, '公寓信息', NULL);
+INSERT INTO `tb_type` VALUES (7, '求职信息', NULL);
+INSERT INTO `tb_type` VALUES (8, '家教信息', NULL);
+INSERT INTO `tb_type` VALUES (9, '车辆信息', NULL);
+INSERT INTO `tb_type` VALUES (10, '出售信息', NULL);
+INSERT INTO `tb_type` VALUES (11, '寻找信息', NULL);
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -522,12 +543,20 @@ CREATE TABLE `tb_type`  (
 DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `user_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_statue` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_user
+-- ----------------------------
+INSERT INTO `tb_user` VALUES (1, 'Fcant', '123', NULL, NULL);
+INSERT INTO `tb_user` VALUES (4, '1610701108', '111', NULL, NULL);
+INSERT INTO `tb_user` VALUES (5, '1610701110', '111', NULL, NULL);
+INSERT INTO `tb_user` VALUES (6, '樊乘', '123456abc', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for teacher
