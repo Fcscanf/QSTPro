@@ -48,7 +48,7 @@
 </body>
 <script>
 
-<!--    用户注册-->
+    // 用户注册
     function register() {
         var uName = document.getElementById('log_Login_action_user_userName').value;
         var pwd = document.getElementById('log_Login_action_user_userPassword').value;
@@ -93,10 +93,9 @@
                 },
                 success:function (result) {
                     if (result.code == 200) {
-                        alert(result.msg)
                         location.href = '/pages/admin/view/AdminTemp.html';
                     } else {
-                        alert(result.msg)
+                        alert(result.msg);
                     }
                 }
             });

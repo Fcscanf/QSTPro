@@ -14,7 +14,7 @@
     <result column="info_linkman" jdbcType="VARCHAR" property="infoLinkman" />
     <result column="info_phone" jdbcType="VARCHAR" property="infoPhone" />
     <result column="info_email" jdbcType="VARCHAR" property="infoEmail" />
-    <result column="info_data" jdbcType="TIMESTAMP" property="infoData" />
+    <result column="info_data" jdbcType="VARCHAR" property="infoData" />
     <result column="info_check" jdbcType="VARCHAR" property="infoCheck" />
     <result column="info_payfor" jdbcType="VARCHAR" property="infoPayfor" />
     <result column="info_status" jdbcType="VARCHAR" property="infoStatus" />
@@ -60,7 +60,7 @@
       info_payfor, info_status)
     values (#{id,jdbcType=INTEGER}, #{infoType,jdbcType=INTEGER}, #{infoTitle,jdbcType=VARCHAR}, 
       #{infoContent,jdbcType=VARCHAR}, #{infoLinkman,jdbcType=VARCHAR}, #{infoPhone,jdbcType=VARCHAR}, 
-      #{infoEmail,jdbcType=VARCHAR}, #{infoData,jdbcType=TIMESTAMP}, #{infoCheck,jdbcType=VARCHAR}, 
+      #{infoEmail,jdbcType=VARCHAR}, #{infoData,jdbcType=VARCHAR}, #{infoCheck,jdbcType=VARCHAR},
       #{infoPayfor,jdbcType=VARCHAR}, #{infoStatus,jdbcType=VARCHAR})
   </insert>
   <insert id="insertNewInfo" parameterType="com.fcant.dl.bean.Info">
@@ -128,7 +128,7 @@
         #{infoEmail,jdbcType=VARCHAR},
       </if>
       <if test="infoData != null">
-        #{infoData,jdbcType=TIMESTAMP},
+        #{infoData,jdbcType=VARCHAR},
       </if>
       <if test="infoCheck != null">
         #{infoCheck,jdbcType=VARCHAR},
@@ -168,7 +168,7 @@
         info_email = #{infoEmail,jdbcType=VARCHAR},
       </if>
       <if test="infoData != null">
-        info_data = #{infoData,jdbcType=TIMESTAMP},
+        info_data = #{infoData,jdbcType=VARCHAR},
       </if>
       <if test="infoCheck != null">
         info_check = #{infoCheck,jdbcType=VARCHAR},
@@ -195,7 +195,7 @@
       info_linkman = #{infoLinkman,jdbcType=VARCHAR},
       info_phone = #{infoPhone,jdbcType=VARCHAR},
       info_email = #{infoEmail,jdbcType=VARCHAR},
-      info_data = #{infoData,jdbcType=TIMESTAMP},
+      info_data = #{infoData,jdbcType=VARCHAR},
       info_check = #{infoCheck,jdbcType=VARCHAR},
       info_payfor = #{infoPayfor,jdbcType=VARCHAR},
       info_status = #{infoStatus,jdbcType=VARCHAR}

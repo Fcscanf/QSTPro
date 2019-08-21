@@ -2,11 +2,15 @@ package com.fcant.dl.controller;
 
 import com.fcant.dl.bean.Info;
 import com.fcant.dl.service.InfoService;
+import com.fcant.dl.util.FcantUtils;
 import com.fcant.dl.util.MsgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * InfoController
@@ -33,10 +37,11 @@ public class InfoController {
      * @date 下午 16:31 2019-08-19/0019
      */
     @RequestMapping("/add")
-    public MsgUtil addInfo(Info info) {
+    public MsgUtil addInfo(Info info) throws ParseException {
         info.setInfoCheck("0");
         info.setInfoPayfor("0");
         info.setInfoStatus("0");
+        info.setInfoData(FcantUtils.formatDate(new Date()));
         System.out.println(info);
         return infoService.insertNewInfo(info);
     }

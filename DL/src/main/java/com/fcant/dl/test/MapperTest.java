@@ -1,12 +1,18 @@
 package com.fcant.dl.test;
 
+import com.fcant.dl.bean.Info;
 import com.fcant.dl.bean.User;
+import com.fcant.dl.mapper.InfoMapper;
 import com.fcant.dl.mapper.UserMapper;
+import com.fcant.dl.util.FcantUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * MapperTest
@@ -23,6 +29,9 @@ public class MapperTest {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    InfoMapper infoMapper;
+
     @Test
     public void queryUserByNameTest() {
         User user = new User();
@@ -35,5 +44,22 @@ public class MapperTest {
         User user = new User();
         user.setUserName("Fcant");
         userMapper.insertUser(user);
+    }
+
+    @Test
+    public void addInfoTest() throws ParseException {
+        Info info = new Info();
+        info.setInfoType(1);
+        info.setInfoTitle("激情创业");
+        info.setInfoContent("未来有我们");
+        info.setInfoLinkman("华宇");
+        info.setInfoPhone("17826260078");
+        info.setInfoEmail("fcscanf@outlook.com");
+        info.setInfoData(FcantUtils.formatDate(new Date()));
+        info.setInfoCheck("0");
+        info.setInfoPayfor("0");
+        info.setInfoStatus("0");
+        int insertNewInfo = infoMapper.insertNewInfo(info);
+        System.out.println(insertNewInfo);
     }
 }
