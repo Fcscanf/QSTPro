@@ -5,6 +5,8 @@ import com.fcant.dl.bean.User;
 import com.fcant.dl.mapper.InfoMapper;
 import com.fcant.dl.mapper.UserMapper;
 import com.fcant.dl.util.FcantUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * MapperTest
@@ -61,5 +64,21 @@ public class MapperTest {
         info.setInfoStatus("0");
         int insertNewInfo = infoMapper.insertNewInfo(info);
         System.out.println(insertNewInfo);
+    }
+
+    /**
+     * 测试使用PageHelper进行分页处理
+     *
+     * @author Fcant
+     * @date 下午 19:19 2019-08-21/0021
+     */
+    @Test
+    public void pageHelperTest() {
+        Info info = new Info();
+        info.setInfoContent("新天地");
+        PageHelper.startPage(1, 5);
+        List<Info> infos = infoMapper.selectByLike(info);
+        PageInfo<Info> pageHelper = new PageInfo<>(infos);
+        System.out.println(pageHelper);
     }
 }

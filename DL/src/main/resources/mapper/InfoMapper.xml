@@ -28,6 +28,64 @@
     id, info_type, info_title, info_content, info_linkman, info_phone, info_email, info_data, 
     info_check, info_payfor, info_status
   </sql>
+
+    <select id="selectAllInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_info
+    </select>
+
+<!--    模糊查询-->
+    <select id="selectByLike" parameterType="com.fcant.dl.bean.Info" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_info
+        where 1=1
+        <if test="id != null and id != ''">
+            and id like concat('%', #{id} ,'%')
+        </if>
+        <if test="infoTitle != null and infoTitle != ''">
+            and info_title like concat('%', #{infoTitle}  ,'%')
+        </if>
+        <if test="infoContent != null and infoContent != ''">
+            and info_content like concat('%', #{infoContent} ,'%')
+        </if>
+        <if test="infoLinkman != null and infoLinkman != ''">
+            and info_linkman like concat('%', #{infoLinkman}  ,'%')
+        </if>
+        <if test="infoPhone != null and infoPhone != ''">
+            and info_phone like concat('%', #{infoPhone} ,'%')
+        </if>
+        <if test="infoEmail != null and infoEmail != ''">
+            and info_email like concat('%', #{infoEmail} ,'%')
+        </if>
+    </select>
+
+    <select id="selectByAll" parameterType="com.fcant.dl.bean.Info" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_info
+        where 1=1
+        <if test="id != null and id != ''">
+            and id = #{id}
+        </if>
+        <if test="infoTitle != null and infoTitle != ''">
+            and info_title = #{infoTitle}
+        </if>
+        <if test="infoContent != null and infoContent != ''">
+            and info_content = #{infoContent}
+        </if>
+        <if test="infoLinkman != null and infoLinkman != ''">
+            and info_linkman = #{infoLinkman}
+        </if>
+        <if test="infoPhone != null and infoPhone != ''">
+            and info_phone = #{infoPhone}
+        </if>
+        <if test="infoEmail != null and infoEmail != ''">
+            and info_mail = #{infoEmail}
+        </if>
+    </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
