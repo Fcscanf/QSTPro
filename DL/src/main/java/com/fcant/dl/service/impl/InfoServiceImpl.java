@@ -30,6 +30,7 @@ public class InfoServiceImpl implements InfoService {
 
     /**
      * 信息查询根据不同的查询进入不同的方法
+     * TODO:页数和页条数大小为作参数传入
      *
      * @param type 属性
      * @param key 查询的关键字

@@ -19,6 +19,25 @@
     <result column="info_payfor" jdbcType="VARCHAR" property="infoPayfor" />
     <result column="info_status" jdbcType="VARCHAR" property="infoStatus" />
   </resultMap>
+
+    <resultMap id="queryAndType" type="com.fcant.dl.bean.Info">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="info_type" jdbcType="INTEGER" property="infoType" />
+        <result column="info_title" jdbcType="VARCHAR" property="infoTitle" />
+        <result column="info_content" jdbcType="VARCHAR" property="infoContent" />
+        <result column="info_linkman" jdbcType="VARCHAR" property="infoLinkman" />
+        <result column="info_phone" jdbcType="VARCHAR" property="infoPhone" />
+        <result column="info_email" jdbcType="VARCHAR" property="infoEmail" />
+        <result column="info_data" jdbcType="VARCHAR" property="infoData" />
+        <result column="info_check" jdbcType="VARCHAR" property="infoCheck" />
+        <result column="info_payfor" jdbcType="VARCHAR" property="infoPayfor" />
+        <result column="info_status" jdbcType="VARCHAR" property="infoStatus" />
+        <association property="type" javaType="com.fcant.dl.bean.Type">
+            <id column="type_sign" property="typeSign"></id>
+            <result column="type_name" property="typeName"></result>
+            <result column="type_intro" property="typeIntro"></result>
+        </association>
+    </resultMap>
   <sql id="Base_Column_List">
     <!--
       WARNING - @mbg.generated
@@ -36,10 +55,10 @@
     </select>
 
 <!--    模糊查询-->
-    <select id="selectByLike" parameterType="com.fcant.dl.bean.Info" resultMap="BaseResultMap">
+    <select id="selectByLike" parameterType="com.fcant.dl.bean.Info" resultMap="queryAndType">
         select
-        <include refid="Base_Column_List" />
-        from tb_info
+        *
+        from tb_info i, tb_type t
         where 1=1
         <if test="id != null and id != ''">
             and id like concat('%', #{id} ,'%')
@@ -59,12 +78,13 @@
         <if test="infoEmail != null and infoEmail != ''">
             and info_email like concat('%', #{infoEmail} ,'%')
         </if>
+        and t.type_sign=i.info_type
     </select>
 
-    <select id="selectByAll" parameterType="com.fcant.dl.bean.Info" resultMap="BaseResultMap">
+    <select id="selectByAll" parameterType="com.fcant.dl.bean.Info" resultMap="queryAndType">
         select
-        <include refid="Base_Column_List" />
-        from tb_info
+        *
+        from tb_info i, tb_type t
         where 1=1
         <if test="id != null and id != ''">
             and id = #{id}
@@ -84,6 +104,7 @@
         <if test="infoEmail != null and infoEmail != ''">
             and info_mail = #{infoEmail}
         </if>
+        and t.type_sign=i.info_type
     </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

@@ -110,4 +110,6 @@ public class Info {
      */
     private String infoStatus;
 
+    private Type type;
+
 }
