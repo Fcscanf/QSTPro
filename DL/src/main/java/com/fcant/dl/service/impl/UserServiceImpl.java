@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public MsgUtil userLogin(User user) {
-        if (user.getUserPassword() == null || user.getUserPassword() == "") {
+        if (user.getUserPassword() == null || "".equals(user.getUserPassword())) {
             return MsgUtil.fail("请输入正确的密码!");
         } else {
             User selectByUserName = userMapper.selectByUserName(user);
