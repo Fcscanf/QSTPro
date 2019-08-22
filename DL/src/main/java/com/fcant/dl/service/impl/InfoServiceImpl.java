@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class InfoServiceImpl implements InfoService {
 
-    private String SEARCH_TYPE = "all";
+    private String searchTypeVal = "all";
 
     @Autowired
     InfoMapper infoMapper;
@@ -44,7 +44,7 @@ public class InfoServiceImpl implements InfoService {
         Field field = Info.class.getDeclaredField(type);
         field.setAccessible(true);
         field.set(info, key);
-        if (SEARCH_TYPE.equals(searchType)) {
+        if (searchTypeVal.equals(searchType)) {
             return searchAll(info);
         } else {
             return searchLike(info);
