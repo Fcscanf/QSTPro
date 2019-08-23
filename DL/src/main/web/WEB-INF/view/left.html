@@ -84,10 +84,10 @@
         }else if (type == null || type == '') {
             alert("请选择查询的类型！");
         } else {
-            window.parent.location.href='/pages/show/searchshow.html';
             window.localStorage.setItem("key", key);
             window.localStorage.setItem("type", type);
             window.localStorage.setItem("searchType", searchType);
+            window.parent.location.href='/pages/show/searchshow.html';
             /*$.ajax({
                 url:'/info/search',
                 type:'post',
@@ -108,7 +108,8 @@
         console.log(window.localStorage.getItem("key"));
         $("#info_SearchShow_action_searchInfo_sqlvalue").val(window.localStorage.getItem("key"));
         $("#info_SearchShow_action_searchInfo_subsql").val(window.localStorage.getItem("type"));
-        $('input:radio:checked').val(window.localStorage.getItem("searchType"));
+        // 查询类型不作参数回填，以免不能正常取值
+        // $('input:radio:checked').val(window.localStorage.getItem("searchType"));
     }
 
     WdatePicker({eCont:'div1'})

@@ -58,7 +58,7 @@ public class MapperTest {
         info.setInfoLinkman("华宇");
         info.setInfoPhone("17826260078");
         info.setInfoEmail("fcscanf@outlook.com");
-        info.setInfoData(FcantUtils.formatDate(new Date()));
+        info.setInfoDate(FcantUtils.formatDate(new Date()));
         info.setInfoCheck("0");
         info.setInfoPayfor("0");
         info.setInfoStatus("0");

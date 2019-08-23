@@ -24,36 +24,20 @@
                     <tr height="1"><td></td></tr>
                     <tr>
                         <td align="center" style="border:1 solid">
-                            <table border="0" width="100%" rules="rows" cellspacing="0">
-                                <tr align="center" height="30" bgcolor="#F0F0F0">
-                                    <td width="6%"><b>序号</b></td>
-                                    <td width="11%"><b>信息类别</b></td>
-                                    <td width="8%"><b>ID值</b></td>
-                                    <td width="38%"><b>信息标题</b></td>
-                                    <td width="22%"><b>发布时间</b></td>
-                                    <td width="15%"><b>联系人</b></td>
-                                </tr>
+                            <table id="searchResult" border="0" width="100%" rules="rows" cellspacing="0">
+                                <thead>
+                                    <tr align="center" height="30" bgcolor="#F0F0F0">
+                                        <td width="6%"><b>序号</b></td>
+                                        <td width="11%"><b>信息类别</b></td>
+                                        <td width="8%"><b>ID值</b></td>
+                                        <td width="38%"><b>信息标题</b></td>
+                                        <td width="22%"><b>发布时间</b></td>
+                                        <td width="15%"><b>联系人</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                <tr height="30">
-                                    <td align="center"><b>1</b></td>
-                                    <td align="center">招聘信息</td>
-                                    <td style="text-indent:10">134</td>
-                                    <td style="text-indent:5"><a href="info_SingleShow.action?id=134">发布招聘信息标题</a></td>
-                                    <td align="center">2007-12-26 13:58:53</td>
-                                    <td style="text-indent:10">小免</td>
-                                </tr>
-
-                                <tr height="30" bgcolor="#F9F9F9">
-
-                                    <td align="center"><b>2</b></td>
-                                    <td align="center">寻找启示</td>
-                                    <td style="text-indent:10">133</td>
-                                    <td style="text-indent:5"><a href="info_SingleShow.action?id=133">发布寻找启示标题</a></td>
-                                    <td align="center">2007-12-26 13:56:49</td>
-                                    <td style="text-indent:10">小免</td>
-                                </tr>
-
-
+                                </tbody>
                             </table>
                         </td>
                     </tr>
@@ -108,13 +92,30 @@
                 searchType:searchType
             },
             success:function (result) {
-                return result;
+                build_result(result);
             }
         });
     }
 
     function build_result(result) {
-
+        $("#searchResult tbody").empty();
+        var infos = result.extend.page.list;
+        console.log(infos)
+        $.each(infos, function (index, item) {
+            var id = $("<td></td>").append(index + 1);
+            var infoType = $("<td></td>").append(item.type.typeName);
+            var infoId = $("<td></td>").append(item.id);
+            var infoTitle = $("<td></td>").append(item.infoTitle);
+            var infoDate = $("<td></td>").append(item.infoDate);
+            var infoLinkman = $("<td></td>").append(item.infoLinkman);
+            $("<tr></tr>").append(id)
+                .append(infoType)
+                .append(infoId)
+                .append(infoTitle)
+                .append(infoDate)
+                .append(infoLinkman)
+                .appendTo("#searchResult tbody");
+        })
     }
 
 </script>
