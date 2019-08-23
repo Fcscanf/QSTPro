@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>都市信息网</title>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
+    <script src="/js/jquery-3.3.1/jquery-3.3.1.min.js"></script>
 </head>
 <body background="/images/back.gif">
 <center>
@@ -14,7 +15,7 @@
         <tr>
             <td width="230" valign="top" align="center">
                 <!-- 左侧 -->
-                <iframe src="/view/left.html" frameBorder="0" width="225" scrolling="no" height="400" ></iframe>
+                <iframe id="searchPage" src="/view/left.html" frameBorder="0" width="225" scrolling="no" height="400" ></iframe>
             </td>
             <td width="690" height="400" align="center" valign="top" bgcolor="#FFFFFF">
                 <table border="0" width="670" cellspacing="0" cellpadding="0" style="margin-top:5">
@@ -84,4 +85,37 @@
     <iframe src="/view/end.html" frameBorder="0" width="920" scrolling="no" height="70" style="margin-top:0"></iframe>
 </center>
 </body>
+
+<script>
+
+    window.onload = function () {
+        // 通过getElementById获取嵌套页面的ID调用嵌套的页面的方法进行参数回填
+        document.getElementById("searchPage").contentWindow.optionBreak();
+        searchInfo();
+    };
+
+    <!--    根据不同条件进行信息搜索-->
+    function searchInfo() {
+        var searchType = window.localStorage.getItem("searchType");
+        var type = window.localStorage.getItem("type");
+        var key = window.localStorage.getItem("key");
+        $.ajax({
+            url:'/info/search',
+            type:'post',
+            data:{
+                type:type,
+                key:key,
+                searchType:searchType
+            },
+            success:function (result) {
+                return result;
+            }
+        });
+    }
+
+    function build_result(result) {
+
+    }
+
+</script>
 </html>

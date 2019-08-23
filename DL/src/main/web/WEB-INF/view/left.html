@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>侧栏</title>
+    <script src="/js/jquery-3.3.1/jquery-3.3.1.min.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
     <script language="javascript" type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 
@@ -37,12 +38,12 @@
                         <td colspan="2">
                             <select name="searchInfo.subsql" id="info_SearchShow_action_searchInfo_subsql" >
                                 <option value=""></option>
-                                <option value="info_content">信息内容</option>
-                                <option value="info_phone">联系电话</option>
-                                <option value="info_email">E-mail地址</option>
+                                <option value="infoContent">信息内容</option>
+                                <option value="infoPhone">联系电话</option>
+                                <option value="infoEmail">E-mail地址</option>
                                 <option value="id">ID值</option>
-                                <option value="info_title">信息标题</option>
-                                <option value="info_linkman">联系人</option>
+                                <option value="infoTitle">信息标题</option>
+                                <option value="infoLinkman">联系人</option>
                             </select>
 
                         </td>
@@ -59,15 +60,11 @@
 
                         </td>
                         <td align="center" >
-                            <input type="submit" id="info_SearchShow_action_0" value="搜索"/>
+                            <input type="button" onclick="searchInfoPage()" id="info_SearchShow_action_0" value="搜索"/>
                         </td>
                     </tr>
                     <tr height="10"><td colspan="3"></td></tr>
                 </form>
-
-
-
-
             </table>
         </td>
     </tr>
@@ -76,6 +73,44 @@
 
 </body>
 <script>
+
+    //  跳转至结果页面并将当前的选择数据保存
+    function searchInfoPage() {
+        var searchType = $('input:radio:checked').val();
+        var type = $("#info_SearchShow_action_searchInfo_subsql").val();
+        var key = document.getElementById("info_SearchShow_action_searchInfo_sqlvalue").value;
+        if (key == null || key == '') {
+            alert("请输入查询的关键字！");
+        }else if (type == null || type == '') {
+            alert("请选择查询的类型！");
+        } else {
+            window.parent.location.href='/pages/show/searchshow.html';
+            window.localStorage.setItem("key", key);
+            window.localStorage.setItem("type", type);
+            window.localStorage.setItem("searchType", searchType);
+            /*$.ajax({
+                url:'/info/search',
+                type:'post',
+                data:{
+                    type:type,
+                    key:key,
+                    searchType:searchType
+                },
+                success:function (result) {
+                    console.log(result);
+                }
+            });*/
+        }
+    }
+
+    // 参数回填
+    function optionBreak() {
+        console.log(window.localStorage.getItem("key"));
+        $("#info_SearchShow_action_searchInfo_sqlvalue").val(window.localStorage.getItem("key"));
+        $("#info_SearchShow_action_searchInfo_subsql").val(window.localStorage.getItem("type"));
+        $('input:radio:checked').val(window.localStorage.getItem("searchType"));
+    }
+
     WdatePicker({eCont:'div1'})
 </script>
 </html>
