@@ -4,6 +4,7 @@ import com.fcant.dl.bean.Info;
 import com.fcant.dl.mapper.InfoMapper;
 import com.fcant.dl.service.InfoService;
 import com.fcant.dl.util.MsgUtil;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class InfoServiceImpl implements InfoService {
 
     /**
      * 信息查询根据不同的查询进入不同的方法
-     * TODO:页数和页条数大小为作参数传入
      *
+     * @param page 页面信息-分页大小和当前页数
      * @param type 属性
      * @param key 查询的关键字
      * @param searchType 查询的类型-模糊查询、全字查询
@@ -40,15 +41,15 @@ public class InfoServiceImpl implements InfoService {
      * @date 下午 20:29 2019-08-21/0021
      */
     @Override
-    public MsgUtil search(String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException {
+    public MsgUtil search(Page page, String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException {
         Info info = new Info();
         Field field = Info.class.getDeclaredField(type);
         field.setAccessible(true);
         field.set(info, key);
         if (searchTypeVal.equals(searchType)) {
-            return searchAll(info);
+            return searchAll(page, info);
         } else {
-            return searchLike(info);
+            return searchLike(page, info);
         }
 
     }
@@ -56,14 +57,15 @@ public class InfoServiceImpl implements InfoService {
     /**
      * 全字匹配查询
      *
+     * @param page 页面信息-分页大小和当前页数
      * @param info 查询的对象
      * @return MsgUtil
      * @author Fcant
      * @date 下午 20:45 2019-08-21/0021
      */
     @Override
-    public MsgUtil searchAll(Info info) {
-        PageHelper.startPage(1, 5);
+    public MsgUtil searchAll(Page page, Info info) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Info> infos = infoMapper.selectByAll(info);
         PageInfo<Info> pageHelper = new PageInfo<>(infos);
         return MsgUtil.success("操作成功").add("page", pageHelper);
@@ -72,14 +74,15 @@ public class InfoServiceImpl implements InfoService {
     /**
      * 模糊查询
      *
+     * @param page 页面信息-分页大小和当前页数
      * @param info 查询的对象
      * @return MsgUtil
      * @author Fcant
      * @date 下午 20:45 2019-08-21/0021
      */
     @Override
-    public MsgUtil searchLike(Info info) {
-        PageHelper.startPage(1, 5);
+    public MsgUtil searchLike(Page page, Info info) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<Info> infos = infoMapper.selectByLike(info);
         PageInfo<Info> pageHelper = new PageInfo<>(infos);
         return MsgUtil.success("操作成功").add("page", pageHelper);

@@ -4,6 +4,7 @@ import com.fcant.dl.bean.Info;
 import com.fcant.dl.service.InfoService;
 import com.fcant.dl.util.FcantUtils;
 import com.fcant.dl.util.MsgUtil;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,8 @@ public class InfoController {
     /**
      * 信息查询-全字匹配、模糊匹配
      *
+     * @param pageNum 分页属性当前页数
+     * @param pageSize 页面size
      * @param type 属性
      * @param key 查询的关键字
      * @param searchType 查询的类型-模糊查询、全字查询
@@ -39,8 +42,11 @@ public class InfoController {
      * @date 下午 20:21 2019-08-21/0021
      */
     @RequestMapping("/search")
-    public MsgUtil searchByType(String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException {
-        return infoService.search(type, key, searchType);
+    public MsgUtil searchByType(int pageNum, int pageSize, String type, String key, String searchType) throws NoSuchFieldException, IllegalAccessException {
+        Page page = new Page();
+        page.setPageNum(pageNum);
+        page.setPageSize(pageSize);
+        return infoService.search(page, type, key, searchType);
     }
 
     /**

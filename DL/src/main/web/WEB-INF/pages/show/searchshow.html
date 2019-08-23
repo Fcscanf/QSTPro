@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>都市信息网</title>
     <link type="text/css" rel="stylesheet" href="/css/style.css">
@@ -36,7 +37,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </td>
@@ -51,8 +51,25 @@
 
                         <table border="0" width="100%" cellspacing="0">
                             <tr>
-                                <td width="60%"><table border='0' cellpadding='3'><tr><td>每页显示：8/22 条记录！当前页：1/3 页！</td></tr></table></td>
-                                <td align="center" width="40%"><table border='0' cellpadding='3'><tr><td><a href='info_SearchShow.action?searchInfo.subsql=info_phone&searchInfo.sqlvalue=1&searchInfo.type=like&showType=link&showpage=2'>下一页</a>&nbsp;<a href='info_SearchShow.action?searchInfo.subsql=info_phone&searchInfo.sqlvalue=1&searchInfo.type=like&showType=link&showpage=3'>尾页</a></td></tr></table></td>
+                                <!--显示分页的信息-->
+                                <div class="row">
+                                    <!--分页文字信息-->
+                                    <div class="col-md-6" align="left" id="page_info_area">
+                                    </div>
+                                    <!--分页条信息-->
+                                    <div class="col-md-6" align="right" id="page_nav_area">
+                                    </div>
+                                </div>
+                                <!--<td width="60%"><table border='0' cellpadding='3'><tr><td>每页显示：8/22 条记录！当前页：1/3 页！</td></tr></table></td>
+                                <td align="center" width="40%">
+                                    <table border='0' cellpadding='3'><tr>
+                                        <td>
+                                            <a href='info_SearchShow.action?searchInfo.subsql=info_phone&searchInfo.sqlvalue=1&searchInfo.type=like&showType=link&showpage=2'>下一页</a>&nbsp;
+                                            <a href='info_SearchShow.action?searchInfo.subsql=info_phone&searchInfo.sqlvalue=1&searchInfo.type=like&showType=link&showpage=3'>尾页</a>
+                                        </td>
+                                    </tr>
+                                    </table>
+                                </td>-->
                             </tr>
                         </table>
 
@@ -75,32 +92,41 @@
     window.onload = function () {
         // 通过getElementById获取嵌套页面的ID调用嵌套的页面的方法进行参数回填
         document.getElementById("searchPage").contentWindow.optionBreak();
-        searchInfo();
+        searchInfo(1);
     };
 
     <!--    根据不同条件进行信息搜索-->
-    function searchInfo() {
+    function searchInfo(pN) {
         var searchType = window.localStorage.getItem("searchType");
         var type = window.localStorage.getItem("type");
         var key = window.localStorage.getItem("key");
+        var size = 5;
+        if (pN == null || pN == undefined || pN == '') {
+            pN = 1;
+        }
         $.ajax({
             url:'/info/search',
             type:'post',
             data:{
+                pageNum:pN,
+                pageSize:size,
                 type:type,
                 key:key,
                 searchType:searchType
             },
             success:function (result) {
                 build_result(result);
+                build_page_info(result);
+                build_page_nav(result);
             }
         });
     }
 
+    // 解析并显示结果集
     function build_result(result) {
         $("#searchResult tbody").empty();
         var infos = result.extend.page.list;
-        console.log(infos)
+        console.log(infos);
         $.each(infos, function (index, item) {
             var id = $("<td></td>").append(index + 1);
             var infoType = $("<td></td>").append(item.type.typeName);
@@ -117,6 +143,71 @@
                 .appendTo("#searchResult tbody");
         })
     }
+
+    //解析显示分页信息
+    function build_page_info(result) {
+        //清空数据
+        $("#page_info_area").empty();
+        $("#page_info_area").append("当前第" + result.extend.page.pageNum + "页,总共"
+            + result.extend.page.pages + "页,共计"
+            + result.extend.page.total + "条记录");
+        totalRecord = result.extend.page.total;
+        currentPage = result.extend.page.pageNum;
+    }
+
+    // 解析并显示分页条信息
+    function build_page_nav(result) {
+        // $("#page_nav_area")
+        //清空数据
+        $("#page_nav_area").empty();
+        var ul = $("<ul></ul>").addClass("pagination");
+        //构建元素
+        var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href", "#"));
+        var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
+        if (result.extend.page.hasPreviousPage == false) {
+            firstPageLi.addClass("disabled");
+            prePageLi.addClass("disabled");
+        }else {
+            //为元素添加点击翻页事件
+            firstPageLi.click(function () {
+                searchInfo(1);
+            });
+            prePageLi.click(function () {
+                searchInfo(result.extend.page.pageNum-1);
+            });
+        }
+        var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
+        var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href", "#"));
+        if (result.extend.page.hasNextPage == false) {
+            nextPageLi.addClass("disabled");
+            lastPageLi.addClass("disabled");
+        }else {
+            //为元素添加点击翻页事件
+            nextPageLi.click(function () {
+                searchInfo(result.extend.page.pageNum+1);
+            });
+            lastPageLi.click(function () {
+                searchInfo(result.extend.page.pages);
+            });
+        }
+        //构造首页和前一页提示按钮
+        ul.append(firstPageLi).append(prePageLi);
+        $.each(result.extend.page.navigatepageNums,function (index,item) {
+            var numLi = $("<li></li>").append($("<a></a>").append(item));
+            if (result.extend.page.pageNum == item) {
+                numLi.addClass("active");
+            }
+            numLi.click(function () {
+                searchInfo(item);
+            });
+            ul.append(numLi);
+        });
+        ul.append(nextPageLi).append(lastPageLi);
+        var navEle = $("<nav></nav>").append(ul);
+        navEle.appendTo("#page_nav_area");
+    }
+
+
 
 </script>
 </html>
