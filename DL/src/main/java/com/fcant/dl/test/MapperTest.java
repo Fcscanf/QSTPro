@@ -4,7 +4,9 @@ import com.fcant.dl.bean.Info;
 import com.fcant.dl.bean.User;
 import com.fcant.dl.mapper.InfoMapper;
 import com.fcant.dl.mapper.UserMapper;
+import com.fcant.dl.service.InfoService;
 import com.fcant.dl.util.FcantUtils;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -34,6 +36,20 @@ public class MapperTest {
 
     @Autowired
     InfoMapper infoMapper;
+
+    @Autowired
+    InfoService infoService;
+
+    @Test
+    public void pageInfoByCheckPayForTest() {
+        Page page = new Page();
+        page.setPageNum(1);
+        page.setPageSize(5);
+        Info info = new Info();
+        info.setInfoCheck("1");
+        info.setInfoPayfor("1");
+        System.out.println(infoService.selectAllByCheckPay(page, info));
+    }
 
     @Test
     public void queryUserByNameTest() {

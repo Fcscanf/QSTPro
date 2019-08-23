@@ -48,10 +48,22 @@
     info_check, info_payfor, info_status
   </sql>
 
-    <select id="selectAllInfo" resultMap="BaseResultMap">
+<!--    根据付费状态、审核状态、信息类别查询-->
+    <select id="selectAllByCheckPay" resultMap="queryAndType">
         select
-        <include refid="Base_Column_List" />
-        from tb_info
+        *
+        from tb_info i, tb_type t
+        where 1=1
+        <if test="infoType != null and infoType != ''">
+            and info_type=#{infoType}
+        </if>
+        <if test="infoCheck != null and infoCheck != ''">
+            and info_check=#{infoCheck}
+        </if>
+        <if test="infoPayfor != null and infoPayfor != ''">
+            and info_payfor=#{infoPayfor}
+        </if>
+        and t.type_sign=i.info_type
     </select>
 
 <!--    模糊查询-->
@@ -81,6 +93,7 @@
         and t.type_sign=i.info_type
     </select>
 
+<!--    根据全字查询-->
     <select id="selectByAll" parameterType="com.fcant.dl.bean.Info" resultMap="queryAndType">
         select
         *

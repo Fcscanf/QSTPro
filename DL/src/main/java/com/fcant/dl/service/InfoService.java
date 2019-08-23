@@ -15,6 +15,17 @@ import com.github.pagehelper.Page;
 public interface InfoService {
 
     /**
+     * 根据付费状态、审核状态查询信息
+     *
+     * @param page 分页的信息：当前页和页面数据大小
+     * @param info 查询的条件：付费、审核、信息的类别
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 16:02 2019-08-23/0023
+     */
+    MsgUtil selectAllByCheckPay(Page page, Info info);
+
+    /**
      * 信息查询根据不同的查询进入不同的方法
      *
      * @param page 页面信息-分页大小和当前页数
