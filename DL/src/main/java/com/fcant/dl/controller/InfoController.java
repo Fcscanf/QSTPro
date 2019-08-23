@@ -56,7 +56,7 @@ public class InfoController {
         info.setInfoCheck("0");
         info.setInfoPayfor("0");
         info.setInfoStatus("0");
-        info.setInfoData(FcantUtils.formatDate(new Date()));
+        info.setInfoDate(FcantUtils.formatDate(new Date()));
         System.out.println(info);
         return infoService.insertNewInfo(info);
     }

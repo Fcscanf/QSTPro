@@ -81,7 +81,7 @@ public class Info {
      *
      * @mbg.generated Tue Aug 13 19:48:59 GMT+08:00 2019
      */
-    private String infoData;
+    private String infoDate;
 
     /**
      *
