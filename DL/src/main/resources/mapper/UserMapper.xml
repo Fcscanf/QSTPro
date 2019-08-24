@@ -22,6 +22,15 @@
     id, user_name, user_password, user_type, user_statue
   </sql>
 
+    <select id="selectUserById" parameterType="com.fcant.dl.bean.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from tb_user
+        where id=#{id}
+        and user_type=1
+        and user_statue=1
+    </select>
+
     <select id="selectAllUserNotAdmin" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"></include>

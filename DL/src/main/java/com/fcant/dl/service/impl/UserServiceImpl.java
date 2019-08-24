@@ -27,6 +27,19 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     /**
+     * 根据用户ID查询用户
+     *
+     * @param user 用户ID-id
+     * @return User
+     * @author Fcant
+     * @date 上午 11:03 2019-08-24/0024
+     */
+    @Override
+    public MsgUtil selectUserById(User user) {
+        return MsgUtil.success("操作成功").add("user", userMapper.selectUserById(user));
+    }
+
+    /**
      * 查询所有非管理用户
      *
      * @param page 当前页pageNum;页面大小pageSize

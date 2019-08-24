@@ -25,6 +25,28 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /**
+     * 根据用户ID查询用户
+     *
+     * @param user 用户ID-id
+     * @return MsgUtil
+     * @author Fcant
+     * @date 上午 11:09 2019-08-24/0024
+     */
+    @RequestMapping("/id")
+    MsgUtil selectUserById(User user) {
+        return userService.selectUserById(user);
+    }
+
+    /**
+     * 查询所有非管理员用户并分页返回
+     *
+     * @param pageNum 当前页
+     * @param pageSize 页面大小
+     * @return MsgUtil
+     * @author Fcant
+     * @date 上午 11:09 2019-08-24/0024
+     */
     @RequestMapping("/select")
     MsgUtil selectAllUserNotAdmin(int pageNum, int pageSize) {
         Page page = new Page();

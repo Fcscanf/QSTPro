@@ -17,6 +17,17 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 
     /**
+     * 根据用户ID查询用户
+     *
+     * @param user 用户ID-id
+     * @return User
+     * @author Fcant
+     * @date 上午 11:03 2019-08-24/0024
+     */
+    MsgUtil selectUserById(User user);
+
+
+    /**
      * 查询所有非管理用户
      *
      * @param page 当前页pageNum;页面大小pageSize

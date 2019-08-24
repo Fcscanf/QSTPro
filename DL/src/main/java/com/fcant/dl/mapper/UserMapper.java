@@ -14,6 +14,16 @@ import java.util.List;
 public interface UserMapper {
 
     /**
+     * 根据用户ID查询用户
+     *
+     * @param user 用户ID-id
+     * @return User
+     * @author Fcant
+     * @date 上午 11:03 2019-08-24/0024
+     */
+    User selectUserById(User user);
+
+    /**
      * 查询所有非管理用户
      *
      * @return List<User>
