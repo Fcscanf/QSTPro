@@ -44,6 +44,20 @@ public class MsgUtil {
         return msgUtil;
     }
 
+    public static MsgUtil success() {
+        MsgUtil msgUtil = new MsgUtil();
+        msgUtil.setCode(200);
+        msgUtil.setMsg("操作成功");
+        return msgUtil;
+    }
+
+    public static MsgUtil fail() {
+        MsgUtil msgUtil = new MsgUtil();
+        msgUtil.setCode(400);
+        msgUtil.setMsg("操作失败");
+        return msgUtil;
+    }
+
     public MsgUtil add(String key, Object value) {
         this.getExtend().put(key, value);
         return this;
