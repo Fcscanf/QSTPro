@@ -27,6 +27,24 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     /**
+     * 逻辑删除用户
+     *
+     * @param user id-根据ID进行逻辑删除
+     * @return MsgUtil
+     * @author Fcant
+     * @date 上午 11:47 2019-08-24/0024
+     */
+    @Override
+    public MsgUtil delUserByLogic(User user) {
+        user.setUserStatue("0");
+        int i = userMapper.delUserByLogic(user);
+        if (i == 1) {
+            return MsgUtil.success();
+        }
+        return MsgUtil.fail();
+    }
+
+    /**
      * 根据用户ID查询用户
      *
      * @param user 用户ID-id

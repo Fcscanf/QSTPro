@@ -26,6 +26,19 @@ public class UserController {
     UserService userService;
 
     /**
+     * 逻辑删除用户
+     *
+     * @param user id-根据ID进行逻辑删除
+     * @return MsgUtil
+     * @author Fcant
+     * @date 上午 11:50 2019-08-24/0024
+     */
+    @RequestMapping("/del")
+    public MsgUtil delUserById(User user) {
+        return userService.delUserByLogic(user);
+    }
+
+    /**
      * 根据用户ID查询用户
      *
      * @param user 用户ID-id
