@@ -43,6 +43,26 @@
         getUsersNotAdmin(1);
     };
 
+    //给更新按钮添加点击绑定事件
+    $(document).on("click",".update_btn",function () {
+        var user_id = $(this).attr("update-id");
+        var user_name = document.getElementById("name_input").value;
+        var user_pwd = document.getElementById("pwd_input").value;
+        $.ajax({
+            url:"/user/update",
+            type:"post",
+            data:{
+                id:user_id,
+                userName:user_name,
+                userPassword:user_pwd
+            },
+            success:function (result) {
+                alert(result.msg);
+                getUsersNotAdmin(1);
+            }
+        })
+    });
+
     //给按钮添加点击绑定事件
     $(document).on("click",".edit_btn",function () {
         // alert("edit");
@@ -59,6 +79,7 @@
         })
     });
 
+    // 构建用户信息编辑显示
     function build_result_select_user_edit(result) {
         var user = result.extend.user;
         $("#searchResult thead").empty();
@@ -66,10 +87,13 @@
         var user_id = $("<td></td>").append('用户ID');
         var user_id_input = $("<td></td>").append(user.id);
         var user_name = $("<td></td>").append('用户名');
-        var user_name_input = $("<td></td>").append($("<input/>").val(user.userName));
+        var name_input = $("<input/>").val(user.userName);
+        name_input.attr('id', 'name_input');
+        var user_name_input = $("<td></td>").append(name_input);
         var user_pwd = $("<td></td>").append('用户密码');
         var pwd_input = $("<input/>");
         pwd_input.attr('type', 'password');
+        pwd_input.attr('id', 'pwd_input');
         pwd_input.val('');
         var user_pwd_input = $("<td></td>").append($(pwd_input));
         var updateBtn = $("<button></button>").addClass("btn btn-success btn-sm update_btn")
