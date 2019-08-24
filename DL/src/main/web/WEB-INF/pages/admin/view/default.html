@@ -8,30 +8,33 @@
 <link type="text/css" rel="stylesheet" href="/css/style.css">
 <body>
 <center>
+    <div>
+        <table id="searchResult" border="0" cellpadding="0" cellspacing="0" width="650" height="300">
+            <thead>
+            <!--<tr align="center" height="30" bgcolor="#F0F0F0">
+                <td width="6%"><b>序号</b></td>
+                <td width="11%"><b>信息类别</b></td>
+                <td width="8%"><b>ID值</b></td>
+                <td width="38%"><b>信息标题</b></td>
+                <td width="22%"><b>发布时间</b></td>
+                <td width="15%"><b>联系人</b></td>
+            </tr>-->
+            </thead>
+            <tbody>
+            </tbody>
 
-    <table id="searchResult" border="0" cellpadding="0" cellspacing="0" width="650" height="300">
-        <thead>
-        <!--<tr align="center" height="30" bgcolor="#F0F0F0">
-            <td width="6%"><b>序号</b></td>
-            <td width="11%"><b>信息类别</b></td>
-            <td width="8%"><b>ID值</b></td>
-            <td width="38%"><b>信息标题</b></td>
-            <td width="22%"><b>发布时间</b></td>
-            <td width="15%"><b>联系人</b></td>
-        </tr>-->
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <!--显示分页的信息-->
-    <div class="row">
-        <!--分页文字信息-->
-        <div class="col-md-6" align="left" id="page_info_area">
-        </div>
-        <!--分页条信息-->
-        <div class="col-md-6" align="right" id="page_nav_area">
+        </table>
+        <!--显示分页的信息-->
+        <div class="row">
+            <!--分页文字信息-->
+            <div class="col-md-6" align="left" id="page_info_area">
+            </div>
+            <!--分页条信息-->
+            <div class="col-md-6" align="right" id="page_nav_area">
+            </div>
         </div>
     </div>
+
 </center>
 </body>
 <script>
@@ -39,6 +42,29 @@
     window.onload = function () {
         getUsersNotAdmin(1);
     };
+
+    // 删除用户添加事件
+    $(document).on("click", ".delete_btn", function () {
+        //弹出是否确认删除对话框
+        // alert($(this).parents("tr").find("td:eq(1)").text());
+        var user_name = $(this).parents("tr").find("td:eq(1)").text();
+        var user_id = $(this).attr("del-id");
+        if (confirm("确认删除【" + user_name + "】吗？")) {
+            //确认，发送ajax请求到后台删除即可
+            $.ajax({
+                url: "/user/del",
+                type: "POST",
+                data:{
+                    id:user_id
+                },
+                success: function (result) {
+                    alert(result.msg);
+                    // 删除完成回到原来的界面
+                    getUsersNotAdmin(1);
+                }
+            });
+        }
+    });
 
     // 根据用户ID查询用户信息
     function getUserByUserId() {
