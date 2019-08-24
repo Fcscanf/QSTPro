@@ -40,6 +40,51 @@
         getUsersNotAdmin(1);
     };
 
+    // 根据用户ID查询用户信息
+    function getUserByUserId() {
+        var select_user_id = window.localStorage.getItem("select_user_id");
+        $.ajax({
+            url:"/user/id",
+            type:"post",
+            data:{
+                id:select_user_id
+            },
+            success:function (result) {
+                build_result_select_user(result);
+            }
+        })
+    }
+
+    // 构建根据ID查询的用户信息的显示
+    function build_result_select_user(result) {
+        var user = result.extend.user;
+        $("#searchResult thead").empty();
+        $("#searchResult tbody").empty();
+        console.log(user);
+        var user_id = $("<td></td>").append('用户ID');
+        var user_name = $("<td></td>").append('用户名');
+        var option = $("<td></td>").append('操作');
+        $("<tr></tr>").append(user_id)
+            .append(user_name)
+            .append(option)
+            .appendTo("#searchResult thead");
+        var user_id_1 = $("<td></td>").append(user.id);
+        var user_name_1 = $("<td></td>").append(user.userName);
+        // 按钮
+        var editBtn = $("<button></button>").addClass("btn btn-success btn-sm edit_btn")
+            .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("Edit"));
+        //为编辑按钮添加一个自定义的属性，来表示当前用户id
+        editBtn.attr("edit-id", user.id);
+        var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
+            .append($("<span></span>").addClass("glyphicon glyphicon-trash").append("Delete"));
+        delBtn.attr("del-id", user.id);
+        var btnTd = $("<td></td>").append(editBtn).append(" | ").append(delBtn);
+        $("<tr></tr>").append(user_id_1)
+            .append(user_name_1)
+            .append(btnTd)
+            .appendTo("#searchResult tbody");
+    }
+
     // 获取非管理员用户信息
     function getUsersNotAdmin(pN) {
         var pageSize = 5;
@@ -58,6 +103,7 @@
         })
     }
 
+    // DOM构建显示用户信息
     function build_result_user(result) {
         $("#searchResult thead").empty();
         $("#searchResult tbody").empty();
@@ -73,6 +119,7 @@
         $.each(users, function (index, item) {
             var user_id_1 = $("<td></td>").append(item.id);
             var user_name_1 = $("<td></td>").append(item.userName);
+            // 按钮
             var editBtn = $("<button></button>").addClass("btn btn-success btn-sm edit_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("Edit"));
             //为编辑按钮添加一个自定义的属性，来表示当前用户id
@@ -81,6 +128,7 @@
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash").append("Delete"));
             delBtn.attr("del-id", item.id);
             var btnTd = $("<td></td>").append(editBtn).append(" | ").append(delBtn);
+
             $("<tr></tr>").append(user_id_1)
                 .append(user_name_1)
                 .append(btnTd)
@@ -88,6 +136,7 @@
         });
     }
 
+    // 根据多条件查询信息
     function getInfo(pN) {
         var pay = window.localStorage.getItem("m_pay");
         var check = window.localStorage.getItem("m_check");

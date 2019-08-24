@@ -20,8 +20,8 @@
                         <tr height="25"><td align="center" valign="bottom">请输入要查询的用户ID：</td></tr>
                         <tr height="40">
                             <td align="center">
-                                <input type="text" name="moneyID" value="" size="24"/>
-                                <input type="button" value="查询"/>
+                                <input id="select_user_id" type="text" name="moneyID" value="" size="24"/>
+                                <input onclick="selectByUserId()" type="button" value="查询"/>
                             </td>
                         </tr>
                     </table>
@@ -126,7 +126,15 @@
 </body>
 <script>
 
-    // 查询信息
+    // 查询用户根据ID
+    function selectByUserId() {
+        var select_user_id = document.getElementById("select_user_id").value;
+        window.localStorage.setItem("select_user_id", select_user_id);
+        window.parent.document.getElementById("main_show")
+            .contentWindow.document.getElementById("show").contentWindow.getUserByUserId();
+    }
+
+    // 查询信息-多条件检索
     function query() {
         var pay = $("input[name='showType.payforType']:checked").val();
         var check = $("input[name='showType.stateType']:checked").val();
