@@ -15,6 +15,26 @@ import com.github.pagehelper.Page;
 public interface InfoService {
 
     /**
+     * 设置审核状态
+     *
+     * @param info id、infoCheck
+     * @return
+     * @author Fcant
+     * @date 下午 20:28 2019-08-24/0024
+     */
+    MsgUtil setChecked(Info info);
+
+    /**
+     * 设置支付状态
+     *
+     * @param info id、infoPayfor
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 20:30 2019-08-24/0024
+     */
+    MsgUtil setPay(Info info);
+
+    /**
      * 根据Info-id查询信息
      *
      * @param info id

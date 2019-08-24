@@ -25,9 +25,58 @@ import java.util.List;
 public class InfoServiceImpl implements InfoService {
 
     private String searchTypeVal = "all";
+    private String success = "1";
 
     @Autowired
     InfoMapper infoMapper;
+
+    /**
+     * 设置审核状态
+     *
+     * @param info id、infoCheck
+     * @return
+     * @author Fcant
+     * @date 下午 20:28 2019-08-24/0024
+     */
+    @Override
+    public MsgUtil setChecked(Info info) {
+        Info selectById = infoMapper.selectById(info);
+        if (selectById == null) {
+            return MsgUtil.fail("请输入正确的ID!");
+        } else {
+            if (success.equals(selectById.getInfoCheck())) {
+                return MsgUtil.success("该条信息已审核通过!");
+            } else {
+                info.setInfoCheck("1");
+                infoMapper.updateInfoById(info);
+                return MsgUtil.success("操作成功！");
+            }
+        }
+    }
+
+    /**
+     * 设置支付状态
+     *
+     * @param info id、infoPayfor
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 20:30 2019-08-24/0024
+     */
+    @Override
+    public MsgUtil setPay(Info info) {
+        Info selectById = infoMapper.selectById(info);
+        if (selectById == null) {
+            return MsgUtil.fail("请输入正确的ID!");
+        } else {
+            if (success.equals(selectById.getInfoPayfor())) {
+                return MsgUtil.success("该条信息已付费!");
+            } else {
+                info.setInfoPayfor("1");
+                infoMapper.updateInfoById(info);
+                return MsgUtil.success("操作成功！");
+            }
+        }
+    }
 
     /**
      * 根据Info-id查询信息

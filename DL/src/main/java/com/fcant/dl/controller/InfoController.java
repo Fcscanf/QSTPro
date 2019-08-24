@@ -30,6 +30,32 @@ public class InfoController {
     InfoService infoService;
 
     /**
+     * 设置信息的审核状态
+     *
+     * @param info id
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 20:41 2019-08-24/0024
+     */
+    @RequestMapping("/check")
+    MsgUtil setCheck(Info info) {
+        return infoService.setChecked(info);
+    }
+
+    /**
+     * 设置信息的付费状态
+     *
+     * @param info id
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 20:41 2019-08-24/0024
+     */
+    @RequestMapping("/pay")
+    MsgUtil setPay(Info info) {
+        return infoService.setPay(info);
+    }
+
+    /**
      * 查询信息根据ID
      *
      * @param info -id
