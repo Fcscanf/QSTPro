@@ -33,6 +33,8 @@ public class UserServiceImpl implements UserService {
     public MsgUtil insertUser(User user) {
         User selectByUserName = userMapper.selectByUserName(user);
         if (selectByUserName == null) {
+            user.setUserStatue("1");
+            user.setUserType("1");
             userMapper.insertUser(user);
             return MsgUtil.success("注册成功！");
         } else {
