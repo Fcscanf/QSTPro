@@ -43,6 +43,36 @@
         getUsersNotAdmin(1);
     };
 
+    // 为审核设置按钮添加事件
+    $(document).on("click",".check_btn",function () {
+        var info_id = $(this).attr("check-id");
+        $.ajax({
+            url:"/info/check",
+            type:"post",
+            data:{
+                id:info_id
+            },
+            success:function (result) {
+                alert(result.msg);
+            }
+        })
+    });
+
+    // 为支付设置按钮添加事件
+    $(document).on("click",".pay_btn",function () {
+        var info_id = $(this).attr("pay-id");
+        $.ajax({
+            url:"/info/pay",
+            type:"post",
+            data:{
+                id:info_id
+            },
+            success:function (result) {
+                alert(result.msg);
+            }
+        })
+    });
+
     // 根据ID查询需要设置的信息
     function selectNotCheckPay() {
         var check_pay_id = window.localStorage.getItem("check_pay_id");
