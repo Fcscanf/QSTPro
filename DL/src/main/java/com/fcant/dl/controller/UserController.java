@@ -3,6 +3,7 @@ package com.fcant.dl.controller;
 import com.fcant.dl.bean.User;
 import com.fcant.dl.service.UserService;
 import com.fcant.dl.util.MsgUtil;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,14 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @RequestMapping("/select")
+    MsgUtil selectAllUserNotAdmin(int pageNum, int pageSize) {
+        Page page = new Page();
+        page.setPageSize(pageSize);
+        page.setPageNum(pageNum);
+        return userService.selectAllUserNotAdmin(page);
+    }
 
     /**
      * 用户注册

@@ -4,8 +4,13 @@ import com.fcant.dl.bean.User;
 import com.fcant.dl.mapper.UserMapper;
 import com.fcant.dl.service.UserService;
 import com.fcant.dl.util.MsgUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * UserServiceImpl
@@ -20,6 +25,22 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
+
+    /**
+     * 查询所有非管理用户
+     *
+     * @param page 当前页pageNum;页面大小pageSize
+     * @return MsgUtil
+     * @author Fcant
+     * @date 上午 10:30 2019-08-24/0024
+     */
+    @Override
+    public MsgUtil selectAllUserNotAdmin(Page page) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<User> users = userMapper.selectAllUserNotAdmin();
+        PageInfo<User> pageHelper = new PageInfo<>(users);
+        return MsgUtil.success("操作成功").add("page", pageHelper);
+    }
 
     /**
      * 用户注册

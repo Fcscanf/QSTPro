@@ -2,6 +2,7 @@ package com.fcant.dl.service;
 
 import com.fcant.dl.bean.User;
 import com.fcant.dl.util.MsgUtil;
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface UserService {
+
+    /**
+     * 查询所有非管理用户
+     *
+     * @param page 当前页pageNum;页面大小pageSize
+     * @return MsgUtil
+     * @author Fcant
+     * @date 上午 10:30 2019-08-24/0024
+     */
+    MsgUtil selectAllUserNotAdmin(Page page);
 
     /**
      * 用户登录，根据不同的情况返回错误码
