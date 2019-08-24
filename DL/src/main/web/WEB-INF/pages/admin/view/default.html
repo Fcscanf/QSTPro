@@ -43,6 +43,52 @@
         getUsersNotAdmin(1);
     };
 
+    //给按钮添加点击绑定事件
+    $(document).on("click",".edit_btn",function () {
+        // alert("edit");
+        var user_id = $(this).attr("edit-id");
+        $.ajax({
+            url:"/user/id",
+            type:"post",
+            data:{
+                id:user_id
+            },
+            success:function (result) {
+                build_result_select_user_edit(result);
+            }
+        })
+    });
+
+    function build_result_select_user_edit(result) {
+        var user = result.extend.user;
+        $("#searchResult thead").empty();
+        $("#searchResult tbody").empty();
+        var user_id = $("<td></td>").append('用户ID');
+        var user_id_input = $("<td></td>").append(user.id);
+        var user_name = $("<td></td>").append('用户名');
+        var user_name_input = $("<td></td>").append($("<input/>").val(user.userName));
+        var user_pwd = $("<td></td>").append('用户密码');
+        var pwd_input = $("<input/>");
+        pwd_input.attr('type', 'password');
+        pwd_input.val('');
+        var user_pwd_input = $("<td></td>").append($(pwd_input));
+        var updateBtn = $("<button></button>").addClass("btn btn-success btn-sm update_btn")
+            .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("Update"));
+        //为编辑按钮添加一个自定义的属性，来表示当前用户id
+        updateBtn.attr("update-id", user.id);
+        $("<tr></tr>").append(user_id)
+            .append(user_id_input)
+            .appendTo("#searchResult thead");
+        $("<tr></tr>").append(user_name)
+            .append(user_name_input)
+            .appendTo("#searchResult tbody");
+        $("<tr></tr>").append(user_pwd)
+            .append(user_pwd_input)
+            .appendTo("#searchResult tbody");
+        $("<tr></tr>").append(updateBtn)
+            .appendTo("#searchResult tbody");
+    }
+
     // 删除用户添加事件
     $(document).on("click", ".delete_btn", function () {
         //弹出是否确认删除对话框
