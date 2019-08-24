@@ -2,6 +2,7 @@
 <head>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="/js/page.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>后台首页</title></head>
 <link type="text/css" rel="stylesheet" href="/css/style.css">
@@ -34,6 +35,58 @@
 </center>
 </body>
 <script>
+
+    window.onload = function () {
+        getUsersNotAdmin(1);
+    };
+
+    // 获取非管理员用户信息
+    function getUsersNotAdmin(pN) {
+        var pageSize = 5;
+        $.ajax({
+            url:"/user/select",
+            type:"post",
+            data:{
+                pageNum:pN,
+                pageSize:pageSize
+            },
+            success:function (result) {
+                build_result_user(result);
+                build_page_info(result);
+                build_page_nav(result);
+            }
+        })
+    }
+
+    function build_result_user(result) {
+        $("#searchResult thead").empty();
+        $("#searchResult tbody").empty();
+        var users = result.extend.page.list;
+        console.log(users);
+        var user_id = $("<td></td>").append('用户ID');
+        var user_name = $("<td></td>").append('用户名');
+        var option = $("<td></td>").append('操作');
+        $("<tr></tr>").append(user_id)
+            .append(user_name)
+            .append(option)
+            .appendTo("#searchResult thead");
+        $.each(users, function (index, item) {
+            var user_id_1 = $("<td></td>").append(item.id);
+            var user_name_1 = $("<td></td>").append(item.userName);
+            var editBtn = $("<button></button>").addClass("btn btn-success btn-sm edit_btn")
+                .append($("<span></span>").addClass("glyphicon glyphicon-pencil").append("Edit"));
+            //为编辑按钮添加一个自定义的属性，来表示当前用户id
+            editBtn.attr("edit-id", item.id);
+            var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
+                .append($("<span></span>").addClass("glyphicon glyphicon-trash").append("Delete"));
+            delBtn.attr("del-id", item.id);
+            var btnTd = $("<td></td>").append(editBtn).append(" | ").append(delBtn);
+            $("<tr></tr>").append(user_id_1)
+                .append(user_name_1)
+                .append(btnTd)
+                .appendTo("#searchResult tbody");
+        });
+    }
 
     function getInfo(pN) {
         var pay = window.localStorage.getItem("m_pay");
