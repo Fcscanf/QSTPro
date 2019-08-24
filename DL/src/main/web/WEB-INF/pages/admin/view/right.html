@@ -104,8 +104,8 @@
                         <tr height="25"><td align="center" valign="bottom">请输入要设为已付费状态的信息ID：</td></tr>
                         <tr height="40">
                             <td align="center">
-                                <input type="text" name="moneyID" value="" size="24"/>
-                                <input type="submit" value="查询"/>
+                                <input type="text" id="check_pay_id" name="moneyID" value="" size="24"/>
+                                <input type="button" onclick="setCheckPay()" value="查询"/>
                             </td>
                         </tr>
                     </table>
@@ -125,6 +125,14 @@
 </center>
 </body>
 <script>
+
+    // 设置发布信息的审核和付费
+    function setCheckPay() {
+        var check_pay_id = document.getElementById("check_pay_id").value;
+        window.localStorage.setItem("check_pay_id", check_pay_id);
+        window.parent.document.getElementById("main_show")
+            .contentWindow.document.getElementById("show").contentWindow.selectNotCheckPay();
+    }
 
     // 查询用户根据ID
     function selectByUserId() {
