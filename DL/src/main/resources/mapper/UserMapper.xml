@@ -43,6 +43,7 @@
         <include refid="Base_Column_List"></include>
         from tb_user
         where user_statue=1
+        and user_type=1
     </select>
   <select id="selectByUserName" parameterType="com.fcant.dl.bean.User" resultMap="BaseResultMap">
     <!--
