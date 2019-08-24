@@ -29,6 +29,14 @@ public class InfoController {
     @Autowired
     InfoService infoService;
 
+    @RequestMapping("/select")
+    public MsgUtil selectByPayCheck(int pageNum, int pageSize, Info info) {
+        Page page = new Page();
+        page.setPageNum(pageNum);
+        page.setPageSize(pageSize);
+        return infoService.selectAllByCheckPay(page, info);
+    }
+
     /**
      * 信息查询-全字匹配、模糊匹配
      *
