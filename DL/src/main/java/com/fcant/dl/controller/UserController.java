@@ -25,6 +25,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @RequestMapping("/update")
+    MsgUtil updateUserById(User user) {
+        return userService.updateUserById(user);
+    }
+
     /**
      * 逻辑删除用户
      *

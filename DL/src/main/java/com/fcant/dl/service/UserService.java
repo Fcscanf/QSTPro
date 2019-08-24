@@ -17,6 +17,16 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 
     /**
+     * 更新用户-根据ID
+     *
+     * @param user 用户需要更新的参数
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 19:02 2019-08-24/0024
+     */
+    MsgUtil updateUserById(User user);
+
+    /**
      * 逻辑删除用户
      *
      * @param user id-根据ID进行逻辑删除
