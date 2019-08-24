@@ -1,7 +1,7 @@
 function check(fieldName,UseName,RemName,len){
     if(fieldName.value.length>len){
         fieldName.value=(fieldName.value).substring(0,len);
-        alert("×î¶à¿ÉÖ»ÔÊĞíÊäÈë "+len+" ¸ö×Ö·û£¡");
+        alert("æœ€å¤šå¯åªå…è®¸è¾“å…¥ "+len+" ä¸ªå­—ç¬¦ï¼");
         return false;
     }
     else{

@@ -1,3 +1,3 @@
 function really(){
-    return confirm("确认要删除该信息吗？");
+    return confirm("纭瑕佸垹闄よ淇℃伅鍚楋紵");
 }
