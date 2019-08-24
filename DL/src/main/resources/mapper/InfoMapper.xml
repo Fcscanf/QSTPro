@@ -48,6 +48,13 @@
     info_check, info_payfor, info_status
   </sql>
 
+    <select id="selectInfoById" parameterType="com.fcant.dl.bean.Info" resultMap="queryAndType">
+        select *
+        from tb_info i, tb_type t
+        where id=#{id}
+        and i.info_type=t.type_sign
+    </select>
+
 <!--    根据付费状态、审核状态、信息类别查询-->
     <select id="selectAllByCheckPay" resultMap="queryAndType">
         select

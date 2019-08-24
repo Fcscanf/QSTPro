@@ -15,6 +15,16 @@ import com.github.pagehelper.Page;
 public interface InfoService {
 
     /**
+     * 根据Info-id查询信息
+     *
+     * @param info id
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 19:40 2019-08-24/0024
+     */
+    MsgUtil selectInfoById(Info info);
+
+    /**
      * 根据付费状态、审核状态查询信息
      *
      * @param page 分页的信息：当前页和页面数据大小

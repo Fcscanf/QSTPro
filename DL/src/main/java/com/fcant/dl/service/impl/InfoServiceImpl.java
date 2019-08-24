@@ -30,6 +30,20 @@ public class InfoServiceImpl implements InfoService {
     InfoMapper infoMapper;
 
     /**
+     * 根据Info-id查询信息
+     *
+     * @param info id
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 19:40 2019-08-24/0024
+     */
+    @Override
+    public MsgUtil selectInfoById(Info info) {
+        Info infoById = infoMapper.selectInfoById(info);
+        return MsgUtil.success().add("info", infoById);
+    }
+
+    /**
      * 根据付费状态、审核状态查询信息
      *
      * @param page 分页的信息：当前页和页面数据大小

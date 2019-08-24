@@ -14,6 +14,16 @@ import java.util.List;
 public interface InfoMapper {
 
     /**
+     * 根据信息ID查询信息
+     *
+     * @param info -信息ID
+     * @return Info
+     * @author Fcant
+     * @date 下午 19:35 2019-08-24/0024
+     */
+    Info selectInfoById(Info info);
+
+    /**
      * 全字匹配查询
      *
      * @param info 查询的对象

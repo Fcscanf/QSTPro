@@ -29,6 +29,29 @@ public class InfoController {
     @Autowired
     InfoService infoService;
 
+    /**
+     * 查询信息根据ID
+     *
+     * @param info -id
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 19:44 2019-08-24/0024
+     */
+    @RequestMapping("/sel")
+    MsgUtil selectInfoById(Info info) {
+        return infoService.selectInfoById(info);
+    }
+
+    /**
+     * 多条件检索信息-根据校验状态和支付状态
+     *
+     * @param pageNum 当前页数
+     * @param pageSize 页面数据条数
+     * @param info 查询的条件
+     * @return MsgUtil
+     * @author Fcant
+     * @date 下午 19:43 2019-08-24/0024
+     */
     @RequestMapping("/select")
     public MsgUtil selectByPayCheck(int pageNum, int pageSize, Info info) {
         Page page = new Page();
