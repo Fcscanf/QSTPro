@@ -34,7 +34,9 @@ public class FileDownloadController {
      */
     @RequestMapping("/download")
     ResponseEntity<byte[]> getUserBook(String filename) throws URISyntaxException, IOException {
-        File file = new File(this.getClass().getClassLoader().getResource("").toURI().getPath()+"\\file\\"+filename);
+        String path = this.getClass().getClassLoader().getResource("").toURI().getPath();
+        path = path.substring(0, path.length() - 8);
+        File file = new File(path+"\\file\\"+filename);
         byte[] body = null;
         InputStream inputStream = new FileInputStream(file);
         body = new byte[inputStream.available()];
