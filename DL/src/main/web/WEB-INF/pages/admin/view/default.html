@@ -27,10 +27,10 @@
         <!--显示分页的信息-->
         <div class="row">
             <!--分页文字信息-->
-            <div class="col-md-6" align="left" id="page_info_area">
+            <div class="col-md-4" align="left" id="page_info_area">
             </div>
             <!--分页条信息-->
-            <div class="col-md-6" align="right" id="page_nav_area">
+            <div class="col-md-8" align="right" id="page_nav_area">
             </div>
         </div>
     </div>
@@ -301,9 +301,61 @@
             success:function (result) {
                 build_result_user(result);
                 build_page_info(result);
-                build_page_nav(result);
+                build_page_nav_user(result);
             }
         })
+    }
+
+    // 解析并显示分页条信息
+    function build_page_nav_user(result) {
+        // $("#page_nav_area")
+        //清空数据
+        $("#page_nav_area").empty();
+        var ul = $("<ul></ul>").addClass("pagination");
+        //构建元素
+        var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href", "#"));
+        var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
+        if (result.extend.page.hasPreviousPage == false) {
+            firstPageLi.addClass("disabled");
+            prePageLi.addClass("disabled");
+        }else {
+            //为元素添加点击翻页事件
+            firstPageLi.click(function () {
+                getUsersNotAdmin(1);
+            });
+            prePageLi.click(function () {
+                getUsersNotAdmin(result.extend.page.pageNum-1);
+            });
+        }
+        var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
+        var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href", "#"));
+        if (result.extend.page.hasNextPage == false) {
+            nextPageLi.addClass("disabled");
+            lastPageLi.addClass("disabled");
+        }else {
+            //为元素添加点击翻页事件
+            nextPageLi.click(function () {
+                getUsersNotAdmin(result.extend.page.pageNum+1);
+            });
+            lastPageLi.click(function () {
+                getUsersNotAdmin(result.extend.page.pages);
+            });
+        }
+        //构造首页和前一页提示按钮
+        ul.append(firstPageLi).append(prePageLi);
+        $.each(result.extend.page.navigatepageNums,function (index,item) {
+            var numLi = $("<li></li>").append($("<a></a>").append(item));
+            if (result.extend.page.pageNum == item) {
+                numLi.addClass("active");
+            }
+            numLi.click(function () {
+                getUsersNotAdmin(item);
+            });
+            ul.append(numLi);
+        });
+        ul.append(nextPageLi).append(lastPageLi);
+        var navEle = $("<nav></nav>").append(ul);
+        navEle.appendTo("#page_nav_area");
     }
 
     // DOM构建显示用户信息
@@ -358,9 +410,61 @@
             success:function (result) {
                 build_result(result);
                 build_page_info(result);
-                build_page_nav(result);
+                build_page_nav_info(result);
             }
         })
+    }
+
+    // 解析并显示分页条信息
+    function build_page_nav_info(result) {
+        // $("#page_nav_area")
+        //清空数据
+        $("#page_nav_area").empty();
+        var ul = $("<ul></ul>").addClass("pagination");
+        //构建元素
+        var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href", "#"));
+        var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;"));
+        if (result.extend.page.hasPreviousPage == false) {
+            firstPageLi.addClass("disabled");
+            prePageLi.addClass("disabled");
+        }else {
+            //为元素添加点击翻页事件
+            firstPageLi.click(function () {
+                getInfo(1);
+            });
+            prePageLi.click(function () {
+                getInfo(result.extend.page.pageNum-1);
+            });
+        }
+        var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;"));
+        var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href", "#"));
+        if (result.extend.page.hasNextPage == false) {
+            nextPageLi.addClass("disabled");
+            lastPageLi.addClass("disabled");
+        }else {
+            //为元素添加点击翻页事件
+            nextPageLi.click(function () {
+                getInfo(result.extend.page.pageNum+1);
+            });
+            lastPageLi.click(function () {
+                getInfo(result.extend.page.pages);
+            });
+        }
+        //构造首页和前一页提示按钮
+        ul.append(firstPageLi).append(prePageLi);
+        $.each(result.extend.page.navigatepageNums,function (index,item) {
+            var numLi = $("<li></li>").append($("<a></a>").append(item));
+            if (result.extend.page.pageNum == item) {
+                numLi.addClass("active");
+            }
+            numLi.click(function () {
+                getInfo(item);
+            });
+            ul.append(numLi);
+        });
+        ul.append(nextPageLi).append(lastPageLi);
+        var navEle = $("<nav></nav>").append(ul);
+        navEle.appendTo("#page_nav_area");
     }
 
     // 解析并显示结果集
