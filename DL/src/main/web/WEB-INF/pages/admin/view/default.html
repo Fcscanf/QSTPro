@@ -75,6 +75,8 @@
 
     // 根据ID查询需要设置的信息
     function selectNotCheckPay() {
+        $("#page_info_area").empty();
+        $("#page_nav_area").empty();
         var check_pay_id = window.localStorage.getItem("check_pay_id");
         $.ajax({
             url:'/info/sel',
@@ -245,6 +247,8 @@
 
     // 根据用户ID查询用户信息
     function getUserByUserId() {
+        $("#page_info_area").empty();
+        $("#page_nav_area").empty();
         var select_user_id = window.localStorage.getItem("select_user_id");
         $.ajax({
             url:"/user/id",
