@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 21/08/2019 11:54:08
+ Date: 03/09/2019 10:45:24
 */
 
 SET NAMES utf8mb4;
@@ -498,18 +498,24 @@ CREATE TABLE `tb_info`  (
   `info_linkman` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `info_data` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `info_date` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_check` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_payfor` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `info_status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_info
 -- ----------------------------
-INSERT INTO `tb_info` VALUES (1, 2, '青软实训', '青软实训是国内最大的实训企业', 'Fcant', '17826260016', 'fcscanf@126.com', NULL, '0', '0', '0');
-INSERT INTO `tb_info` VALUES (2, 1, '激情创业', '未来有我们', '华宇', '17826260078', 'fcscanf@outlook.com', '2019-08-21 11:49:11', '0', '0', '0');
+INSERT INTO `tb_info` VALUES (1, 2, '青软实训', '青软实训是国内最大的实训企业', 'Fcant', '17826260016', 'fcscanf@126.com', NULL, '1', '1', '0');
+INSERT INTO `tb_info` VALUES (2, 1, '激情创业', '未来有我们', '华宇', '17826260078', 'fcscanf@outlook.com', '2019-08-21 11:49:11', '1', '0', '0');
+INSERT INTO `tb_info` VALUES (3, 3, '丽水房屋出租', '丽水家园', 'Yt', '17826260089', 'yhlk@qq.com', '2019-08-21 19:05:50', '1', '1', '0');
+INSERT INTO `tb_info` VALUES (4, 2, '英语培训', '专业英语培训', 'Uy', '17826263489', 'ytlk@qq.com', '2019-08-21 19:06:25', '0', '0', '1');
+INSERT INTO `tb_info` VALUES (5, 6, '赫德公寓出租', '新天地', 'UyI', '17834263489', 'uiytlk@qq.com', '2019-08-21 19:07:07', '0', '0', '0');
+INSERT INTO `tb_info` VALUES (6, 8, '小孩学习成长', '新天地小孩学习', 'UyIU', '17834453489', 'uiuiuiytlk@qq.com', '2019-08-21 19:07:46', '1', '1', '1');
+INSERT INTO `tb_info` VALUES (7, 9, '二手宝马出售', '宝马新天地', 'UyIUer', '17834453489', 'eiuiytlk@qq.com', '2019-08-21 19:08:32', '0', '0', '0');
+INSERT INTO `tb_info` VALUES (8, 11, '寻找熊猫', '熊猫，大熊猫', 'UyIUert', '17854453489', 'uiytlk@qq.com', '2019-08-21 19:09:09', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for tb_type
@@ -553,10 +559,11 @@ CREATE TABLE `tb_user`  (
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES (1, 'Fcant', '123', NULL, NULL);
-INSERT INTO `tb_user` VALUES (4, '1610701108', '111', NULL, NULL);
-INSERT INTO `tb_user` VALUES (5, '1610701110', '111', NULL, NULL);
-INSERT INTO `tb_user` VALUES (6, '樊乘', '123456abc', NULL, NULL);
+INSERT INTO `tb_user` VALUES (1, 'Fcant', '12', '1', '1');
+INSERT INTO `tb_user` VALUES (4, '1610701108', '111', '1', '0');
+INSERT INTO `tb_user` VALUES (5, '1610701110', '111', '2', '1');
+INSERT INTO `tb_user` VALUES (6, '樊乘', '123456abc', '2', '1');
+INSERT INTO `tb_user` VALUES (7, '1610701115', '111', '1', '1');
 
 -- ----------------------------
 -- Table structure for teacher
